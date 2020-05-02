@@ -10,7 +10,24 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("UI Design")
+                        .font(.title)
+                        .fontWeight(.semibold)
+                    Text("Certificate")
+                    .foregroundColor(Color("accent"))
+                }
+                Spacer()
+                Image("Logo1")
+            }
+            Spacer()
+            Image("Card1")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+        }
+        .frame(width: 340.0, height: 220.0)
     }
 }
 

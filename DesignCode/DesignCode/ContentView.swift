@@ -16,19 +16,28 @@ struct ContentView: View {
                     Text("UI Design")
                         .font(.title)
                         .fontWeight(.semibold)
+                        .foregroundColor(.white)
                     Text("Certificate")
-                    .foregroundColor(Color("accent"))
+                        .foregroundColor(Color("accent"))
                 }
                 Spacer()
                 Image("Logo1")
             }
+            .padding(.horizontal, 20)
+            .padding(.top, 20)
+            
             Spacer()
             Image("Card1")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 300, height: 110)
         }
         .frame(width: 340.0, height: 220.0)
+        .background(Color.black)
+        .cornerRadius(20)
+        .shadow(radius: 20)
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

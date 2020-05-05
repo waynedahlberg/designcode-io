@@ -11,6 +11,7 @@ import SwiftUI
 struct HomeView: View {
     
     @Binding var showProfile: Bool
+    @State var showUpdate: Bool = false
     
     var body: some View {
         VStack {
@@ -22,15 +23,34 @@ struct HomeView: View {
                     Spacer()
                     
                     AvatarView(showProfile: $showProfile)
+                    
+                    Button(action: { self.showUpdate.toggle() }) {
+                        Image(systemName: "bell")
+                            .font(.system(size: 16, weight: .medium))
+                            .frame(width: 36, height: 36)
+                            .background(Color.white)
+                            .clipShape(Circle())
+                            .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 1)
+                            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 10)
+                    }
+                    .sheet(isPresented: $showUpdate) {
+                        UpdateList()
+                    }
                 }
             }
             .padding(.horizontal)
             .padding(.top, 30)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 30) {
+                HStack(spacing: 20) {
                     ForEach(sectionData) { item in
-                        SectionView(section: item)
+                        GeometryReader { geometry in
+                            SectionView(section: item)
+                                .rotation3DEffect(.init(degrees:
+                                    Double(geometry.frame(in: .global).minX - 30) / -20
+                                    ), axis: (x: 0.0, y: 10.0, z: 0.0))
+                        }
+                        .frame(width: 275, height: 275)
                     }
                 }
                 .padding(30)
@@ -94,7 +114,7 @@ struct Section : Identifiable {
 }
 
 let sectionData = [
-    Section(title: "Prototype designs in SwiftUI", text: "18 sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card1")), color: Color(#colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1))),
+    Section(title: "Prototype designs in SwiftUI", text: "18 sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card4")), color: Color(#colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1))),
     Section(title: "Build a SwiftUI app", text: "20 sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Background1")), color: Color(#colorLiteral(red: 0.1215686277, green: 0.01176470611, blue: 0.4235294163, alpha: 1))),
     Section(title: "SwiftUI Advanced", text: "20 sections", logo: "Logo1", image: Image(uiImage: #imageLiteral(resourceName: "Card2")), color: Color(#colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)))
 ]
